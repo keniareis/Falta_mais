@@ -1,8 +1,9 @@
-import Discipline from "../models/discipline.js";
+import disciplineRepository from "../repositories/disciplineRepository.js";
 
 class DisciplineService{
+
     getAllDisciplines = async () => {
-        const disciplines = await Discipline.find();
+        const disciplines = await disciplineRepository.findAll();
         return disciplines;
     }
 }
