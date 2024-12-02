@@ -1,0 +1,3 @@
+const getAllDisciplines = (req, res) => {
+    
+}
