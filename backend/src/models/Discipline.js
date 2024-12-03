@@ -8,7 +8,7 @@ const DisciplineSchema = new mongoose.Schema({
     total_classes: {
         type: Number,
         required: true,
-    },
+        },
     total_absence: {
         type: Number,
         required: true,
