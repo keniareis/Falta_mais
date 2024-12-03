@@ -21,8 +21,14 @@ class DisciplineService{
         }
     }
 
-    updateDiscipline = async () => {
-        
+    updateDiscipline = async (id, updates) => {
+        const updatedDiscipline = await Discipline.findByIdAndUpdate(
+            id, 
+            updates,
+            {new: true} // Garante que o documento atualizado seja retornado
+        );
+
+        return updatedDiscipline;
     }
 
     deleteDiscipline = async (id) => {
