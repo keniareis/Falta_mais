@@ -5,14 +5,17 @@ const DisciplineSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+
     total_classes: {
         type: Number,
         required: true,
-        },
+    },
+    
     total_absence: {
         type: Number,
         required: true,
     },
+    
     current_absence: {
         type: Number,
         required: true,
