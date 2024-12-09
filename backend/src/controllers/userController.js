@@ -13,6 +13,11 @@ class UserController {
         const users = await UserService.getAllUsers();
         res.json(users);
     }
+
+    async getUserById(req, res){
+        const user = await UserService.getUserById(req.params.id);
+        res.status(201).json(user);
+    }
     
 }
 
