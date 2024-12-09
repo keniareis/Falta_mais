@@ -6,15 +6,11 @@ const UserSchema = new mongoose.Schema({
         required: true 
     },
 
-    nickname:{
-        type: String,
-        required: true
-    },
-    
     email: { 
         type: String, 
         required: true, 
-        unique: true 
+        unique: true,
+        minlength: 6
     },
     
     password: { 

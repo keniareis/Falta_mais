@@ -1,4 +1,3 @@
-import Discipline from "../models/discipline.js";
 import disciplineService from "../services/DisciplineService.js"
 
 class DisciplineController{
@@ -16,7 +15,7 @@ class DisciplineController{
 
     async getAllDisciplines(req, res){
         const row = await disciplineService.getAllDisciplines();
-        res.json(row);
+        res.status(200).json(row);
     }
 
     async getDisciplineById(req, res){
