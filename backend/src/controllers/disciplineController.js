@@ -36,7 +36,6 @@ class DisciplineController{
         res.status(200).json(updatedDiscipline);
     }    
 
-    
     async deleteDiscipline(req, res) {
         const id = req.params.id;
         const idExists = await disciplineService.getDisciplineById(id);
