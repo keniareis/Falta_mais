@@ -2,8 +2,11 @@ import express from 'express';
 import { config } from 'dotenv';
 import connectDb from './database/db.js'
 import router from './routes/disciplineRoutes.js'
-import userRouter from './routes/userRoutes.js';
 import bodyParser from 'body-parser';
+
+import userRouter from './routes/userRoutes.js';
+import authRouter from './routes/authRoutes.js';
+
 
 config();
 connectDb();
@@ -15,6 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(router);
 app.use(userRouter); 
+app.use(authRouter); 
 app.listen(port, () => console.log(`listening on port ${port}!`));
 
 app.get('/', (req, res) => {
