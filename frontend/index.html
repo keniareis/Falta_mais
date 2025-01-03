@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Falta+</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #1f2937;
+      color: #e5e7eb;
+    }
+    header {
+      background-color: #2563eb;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #374151;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+    .card {
+      background: #1f2937;
+      margin: 1rem 0;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    .card h3 {
+      margin: 0 0 0.5rem 0;
+      color: #60a5fa;
+    }
+    .card p {
+      margin: 0.5rem 0;
+    }
+    .progress-bar {
+      background-color: #374151;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 0.5rem 0;
+    }
+    .progress {
+      height: 10px;
+      background-color: #60a5fa;
+      width: 0%;
+      transition: width 0.3s;
+    }
+    .actions {
+      margin-top: 1rem;
+      text-align: right;
+    }
+    .button {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-left: 0.5rem;
+    }
+    .button:hover {
+      background-color: #1e40af;    
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Falta+</h1>
+    <p>Controle suas faltas com tecnologia e precisão.</p>
+  </header>
+  <main class="container">
+    <div class="card" data-id="1">
+      <h3>Matemática</h3>
+      <p>Faltas: <span id="faltas-1">3</span>/10 (<span id="percentual-1">30</span>%)</p>
+      <div class="progress-bar">
+        <div class="progress" id="progress-1" style="width: 30%;"></div>
+      </div>
+      <div class="actions">
+        <button class="button" onclick="alterarFaltas(1)">Adicionar Faltas</button>
+        <button class="button" onclick="editarMateria(1)">Editar Matéria</button>
+      </div>
+    </div>
+    <div class="card" data-id="2">
+      <h3>História</h3>
+      <p>Faltas: <span id="faltas-2">1</span>/10 (<span id="percentual-2">10</span>%)</p>
+      <div class="progress-bar">
+        <div class="progress" id="progress-2" style="width: 10%;"></div>
+      </div>
+      <div class="actions">
+        <button class="button" onclick="alterarFaltas(2)">Adicionar Faltas</button>
+        <button class="button" onclick="editarMateria(2)">Editar Matéria</button>
+      </div>
+    </div>
+  </main>
+  <script>
+    const API_URL = 'http://localhost:3000/';
+
+    async function alterarFaltas(id) {
+      const faltas = prompt('Digite a nova quantidade de faltas:');
+      if (faltas !== null && !isNaN(faltas)) {
+        try {
+          const response = await fetch(`${API_URL}/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ faltas: parseInt(faltas) })
+          });
+          const data = await response.json();
+          if (response.ok) {
+            document.getElementById(`faltas-${id}`).textContent = data.faltas;
+            const percentual = (data.faltas / 10) * 100;
+            document.getElementById(`percentual-${id}`).textContent = percentual.toFixed(0);
+            document.getElementById(`progress-${id}`).style.width = `${percentual}%`;
+          } else {
+            alert(data.error || 'Erro ao atualizar faltas.');
+          }
+        } catch (err) {
+          alert('Erro ao conectar com o servidor.');
+        }
+      }
+    }
+
+    async function editarMateria(id) {
+      const novoNome = prompt('Digite o novo nome da matéria:');
+      if (novoNome !== null) {
+        try {
+          const response = await fetch(`${API_URL}/${id}/nome`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nome: novoNome })
+          });
+          const data = await response.json();
+          if (response.ok) {
+            const card = document.querySelector(`.card[data-id="${id}"] h3`);
+            if (card) card.textContent = data.nome;
+          } else {
+            alert(data.error || 'Erro ao atualizar o nome da matéria.');
+          }
+        } catch (err) {
+          alert('Erro ao conectar com o servidor.');
+        }
+      }
+    }
+  </script>
+</body>
+</html>
