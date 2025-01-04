@@ -38,6 +38,7 @@ class UserController {
         user = await UserService.deleteUser(id)
         res.status(200).json(user);
     }
+
 }
 
 export default new UserController;
