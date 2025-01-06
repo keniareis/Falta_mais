@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(router);
 app.use(userRouter); 
-app.use(authRouter); 
+app.use("/auth", authRouter); 
 app.listen(port, () => console.log(`listening on port ${port}!`));
 
 app.get('/', (req, res) => {
