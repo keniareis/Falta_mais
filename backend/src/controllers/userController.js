@@ -5,38 +5,61 @@ class UserController {
     async createUser(req, res){
         const { name, email, password} = req.body;
         const user = { name, email, password};
-        const savedUser = await UserService.createUser(user);
-        res.status(201).json(savedUser);
+
+        try {
+            const savedUser = await UserService.createUser(user);
+            res.status(201).json(savedUser);
+        } catch (error) {
+            res.status(500).json({ error: "Error to create user: " + error.message });
+        }
     }
 
     async getUser(req, res){
-        const users = await UserService.getAllUsers();
-        res.json(users);    
+        try {
+            const users = await UserService.getAllUsers();
+            res.json(users);    
+        } catch (error) {
+            res.status(500).json({ error: "Error fetching users: " + error.message });
+        }
     }
 
     async getUserById(req, res){
-        const user = await UserService.getUserById(req.params.id);
-        res.status(201).json(user);
+        try {
+            const user = await UserService.getUserById(req.params.id);
+            res.status(201).json(user);
+        } catch (error) {
+            res.status(500).json({ error: "Error fetching user: " + error.message });
+        }
     }
 
     async updateUser(req, res){
         const { id } = req.params;
         const updates = req.body;
-
-        const updatedUser = await UserService.updateUser(id, updates);
-        
-        if(!updatedUser){
-            return res.status(404).json({ error: "User not found!" });
+        try {
+            const updatedUser = await UserService.updateUser(id, updates);
+            
+            if(!updatedUser){
+                return res.status(404).json({ error: "User not found!" });
+            }
+    
+            res.status(200).json(updatedUser);
+        } catch (error) {
+            res.status(500).json({ error: "Error updating user: " + error.message });
         }
-
-        res.status(200).json(updatedUser);
     }    
 
     async deleteUser(req, res){
         const id = req.params.id;
-        const user = await UserService.getUserById(id);
-        user = await UserService.deleteUser(id)
-        res.status(200).json(user);
+        try {
+            const user = await UserService.getUserById(id);
+            if(!user){
+                return res.status(404).json({ error: "User not found!" });
+            }
+            user = await UserService.deleteUser(id)
+            res.status(200).json(user);
+        } catch (error) {
+            res.status(500).json({ error: "Error deleting user: " + error.message });
+        }
     }
 
 }

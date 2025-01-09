@@ -21,7 +21,7 @@ const login =  async (req, res) =>{
         
         res.send({token});
     }catch(err){
-        res.status(500).send(err.message); 
+        res.status(500).send("Internal server error", err.message); 
     }
 };
 
