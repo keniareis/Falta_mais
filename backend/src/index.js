@@ -7,6 +7,7 @@ import cors from 'cors';
 
 import userRouter from './routes/userRoutes.js';
 import authRouter from './routes/authRoutes.js';
+import swaggerRouter from './routes/sweggerRoutes.js';
 
 
 config();
@@ -25,6 +26,7 @@ app.use(cors({
 app.use(router);
 app.use(userRouter); 
 app.use("/auth", authRouter); 
+app.use(swaggerRouter); 
 app.listen(port, () => console.log(`listening on port ${port}!`));
 
 app.get('/', (req, res) => {

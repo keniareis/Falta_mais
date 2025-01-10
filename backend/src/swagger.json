@@ -1,0 +1,73 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Falta+ API Documentation",
+        "description": "In this documentation you will be able to consult the API end-points and also test all avaliable routes.",
+        "contact": {
+            "email": "keniaolivereis@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000",
+            "description": "Local Server"
+        }
+    ],
+    "paths": {
+        "/user": {
+            "post": {
+                "summary": "Create a new user",
+                "description": "Route responsible for creating a new user",
+                "tags": [
+                    "Users"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            },
+                            "examples": {
+                                "Users": {
+                                    "value": {
+                                        "name": "Cacau",
+                                        "email": "clima@gmail.com",
+                                        "password": "123456"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schemma": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user": {},
+        "/user/{id}": {},
+        "/user/{id}": {},
+        "/user/{id}": {},
+        "/discipline": {},
+        "/discipline": {},
+        "/discipline/{id}": {},
+        "/discipline/{id}": {},
+        "/discipline/{id}": {},
+        "/auth": {}
+    },
+    "components": {}
+}
