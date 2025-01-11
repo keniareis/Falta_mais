@@ -4,6 +4,9 @@
 
 Um sistema feito para estudantes que *não gostam de surpresas na hora das faltas.* Aqui você sabe exatamente o que tá rolando: quem tá tranquilo e quem já tá flertando com a reprovação.  
 
+![image](https://github.com/user-attachments/assets/219f052a-72c7-4068-8278-d49889d6c071)
+
+
 ## 🤔 Por que isso existe?  
 
 Porque ninguém merece:
