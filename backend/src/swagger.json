@@ -167,17 +167,17 @@
                 }
             },
             "delete": {
-                "summary": "Delete a post",
-                "description": "Route responsible for deleting a Post",
+                "summary": "Delete a user",
+                "description": "Route responsible for deleting a user",
                 "tags": [
-                    "Post"
+                    "Users"
                 ],
                 "parameters": [
                     {
                         "in": "path",
                         "name": "id",
                         "type": "string",
-                        "description": "Post ID",
+                        "description": "User ID",
                         "required": true
                     }
                 ],

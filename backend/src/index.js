@@ -26,7 +26,7 @@ app.use(cors({
 app.use(router);
 app.use(userRouter); 
 app.use("/auth", authRouter); 
-app.use(swaggerRouter); 
+app.use("/doc", swaggerRouter); 
 app.listen(port, () => console.log(`listening on port ${port}!`));
 
 app.get('/', (req, res) => {
