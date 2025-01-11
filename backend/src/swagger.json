@@ -56,18 +56,406 @@
                         }
                     }
                 }
+            },
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "List all users",
+                "responses": {
+                    "200": {
+                        "description": "User list successfully returned",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
-        "/user": {},
-        "/user/{id}": {},
-        "/user/{id}": {},
-        "/user/{id}": {},
-        "/discipline": {},
-        "/discipline": {},
-        "/discipline/{id}": {},
-        "/discipline/{id}": {},
-        "/discipline/{id}": {},
-        "/auth": {}
+        "/user/{id}": {
+            "get": {
+                "summary": "Search user by id",
+                "description": "Route responsible for searching for user by id",
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "description": "User ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Update user by id",
+                "description": "Route responsible for editing the user by id",
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "description": "User ID",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            },
+                            "examples": {
+                                "Users": {
+                                    "value": {
+                                        "name": "Kenia Reis"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a post",
+                "description": "Route responsible for deleting a Post",
+                "tags": [
+                    "Post"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "description": "Post ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/discipline": {
+            "post": {
+                "summary": "Create a new discipline",
+                "description": "Route responsible for creating a new discipline",
+                "tags": [
+                    "Disciplines"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Discipline"
+                            },
+                            "examples": {
+                                "Users": {
+                                    "value": {
+                                        "name": "Calculo I",
+                                        "total_classes": "60",
+                                        "total_absence": "18",
+                                        "current_absence": "2"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schemma": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Discipline"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Search all Disciplines",
+                "description": "Route responsible for fetching all disciplines",
+                "tags": [
+                    "Disciplines"
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Discipline"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/discipline/{id}": {
+            "get": {
+                "summary": "Search discipline by id",
+                "description": "Route responsible for searching for discipline by id",
+                "tags": [
+                    "Disciplines"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "description": "Disicipline ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Discipline"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Update discipline by id",
+                "description": "Route responsible for editing the discipline by id",
+                "tags": [
+                    "Disciplines"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "description": "Disicipline ID",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Discipline"
+                            },
+                            "examples": {
+                                "Users": {
+                                    "value": {
+                                        "name": "Calculo I"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Discipline"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a discipline",
+                "description": "Route responsible for deleting a discipline",
+                "tags": [
+                    "Disciplines"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "description": "Disicipline ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/auth": {
+            "post": {
+                "summary": "Login to Falta+",
+                "description": "Route responsible for logging in a registered user",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            },
+                            "examples": {
+                                "User": {
+                                    "value": {
+                                        "email": "kenia@gmail.com",
+                                        "password": "12345"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
     },
-    "components": {}
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        },
+        "schemas": {
+            "User": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Discipline": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "total_classes": {
+                        "type": "Number"
+                    },
+                    "total_absence": {
+                        "type": "Number"
+                    },
+                    "current_absence": {
+                        "type": "Number"
+                    }
+                }
+            }
+        }
+    }
 }
