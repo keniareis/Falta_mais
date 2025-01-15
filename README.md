@@ -1,10 +1,11 @@
-# 📚 Faltou, mas não passa despercebido  
+# 📚 Faltou denovo?
 
 > "Se eu tivesse um real para cada falta que marquei... Bom, agora você pode acompanhar isso!"  
 
 Um sistema feito para estudantes que *não gostam de surpresas na hora das faltas.* Aqui você sabe exatamente o que tá rolando: quem tá tranquilo e quem já tá flertando com a reprovação.  
 
-![image](https://github.com/user-attachments/assets/219f052a-72c7-4068-8278-d49889d6c071)
+![image](https://github.com/user-attachments/assets/b5bc06ff-ef78-4dee-914d-2e28479d1fc0)
+
 
 
 ## 🤔 Por que isso existe?  
