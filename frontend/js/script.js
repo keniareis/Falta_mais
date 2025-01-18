@@ -145,3 +145,61 @@ function adicionarDisciplina() {
 
   fecharModal();
 }
+
+
+
+// Simula validação de login
+function fazerLogin(event) {
+  event.preventDefault(); // Impede o envio do formulário
+  const email = document.getElementById("email").value;
+  const senha = document.getElementById("senha").value;
+
+  // Verifica se o email e a senha estão corretos
+  if (email === "admin@faltamais.com" && senha === "123456") {
+    // Redireciona para o dashboard (index.html)
+    window.location.href = "index.html";
+  } else {
+    alert("Email ou senha inválidos.");
+  }
+}
+
+// Funções para manipular o dashboard
+function alterarFaltas(id) {
+  const faltasElement = document.getElementById(`faltas-${id}`);
+  const percentualElement = document.getElementById(`percentual-${id}`);
+  const progressElement = document.getElementById(`progress-${id}`);
+
+  let faltas = parseInt(faltasElement.innerText);
+  let totalAulas = 10; // Altere conforme necessário
+  faltas += 1;
+
+  const percentual = Math.min((faltas / totalAulas) * 100, 100);
+  faltasElement.innerText = faltas;
+  percentualElement.innerText = percentual.toFixed(0);
+  progressElement.style.width = `${percentual}%`;
+}
+
+function abrirModal() {
+  const modal = document.getElementById("modal");
+  modal.classList.remove("hidden");
+}
+
+function fecharModal() {
+  const modal = document.getElementById("modal");
+  modal.classList.add("hidden");
+}
+
+function adicionarDisciplina() {
+  const nome = document.getElementById("nome-disciplina").value;
+  const totalAulas = parseInt(document.getElementById("total-aulas").value);
+  const faltasPermitidas = parseInt(
+    document.getElementById("faltas-permitidas").value
+  );
+
+  if (nome && totalAulas && faltasPermitidas) {
+    alert(`Disciplina "${nome}" adicionada com sucesso!`);
+    fecharModal();
+  } else {
+    alert("Preencha todos os campos!");
+  }
+}
