@@ -238,3 +238,69 @@ body.login {
 .hidden {
   display: none;
 }
+
+
+.signin-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh; /* Centraliza verticalmente na página */
+  max-width: 400px;
+  margin: auto;
+  text-align: center;
+
+  a{
+    color: #60A5FA
+  }
+}
+
+body.signin {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #1F2937;
+  color: #e5e7eb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.signin-card {
+  background-color: #374151;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+  width: 100%;
+}
+
+.signin-card h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.signin-form input {
+  width: 350px;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #444;
+  border-radius: 5px;
+  background-color: #1F2937;
+  color: #fff;
+}
+
+.signin-btn {
+  width: 200px;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: large;
+}
+
+.hidden {
+  display: none;
+}
