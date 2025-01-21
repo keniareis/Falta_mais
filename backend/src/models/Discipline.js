@@ -11,7 +11,7 @@ const DisciplineSchema = new mongoose.Schema({
         required: true,
     },
     
-    total_absence: {
+    max_absences: {
         type: Number,
         required: true,
     },

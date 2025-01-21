@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signin - Falta+</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body class="signin">
+  <div class="signin-container">
+    <header class="logo">
+      <img src="./assets/faltamais.png" alt="Falta+ Logo">
+    </header>
+    <div class="signin-card">
+      <h2>Entrar</h2>
+      <form class="signin-form" onsubmit="return fazerLogin(event)">
+        <input type="name" id="name" placeholder="Nome" required>
+
+        <input type="email" id="email" placeholder="Email" required>
+
+        <input type="password" id="senha" placeholder="Senha" required>
+
+        <button type="submit" class="signin-btn">Entrar</button>
+      </form>
+      <p class="register-link">
+        Já tem uma conta? <a href="#" target="_blank">Entrar</a>
+      </p>
+    </div>
+  </div>
+  <script src="./js/script.js"></script>
+</body>
+</html>
