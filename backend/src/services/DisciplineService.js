@@ -21,10 +21,10 @@ class DisciplineService{
         }
     }
 
-    updateDiscipline = async (id, updates) => {
+    updateDiscipline = async (id, { name, total_classes, max_absences, current_absence }) => {
         const updatedDiscipline = await Discipline.findByIdAndUpdate(
             id, 
-            updates,
+            { name, total_classes, max_absences, current_absence },
             {new: true} // Garante que o documento atualizado seja retornado
         );
 
