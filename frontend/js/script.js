@@ -2,25 +2,39 @@ const API_URL = 'http://localhost:3000';
 
 // Alterar número de faltas
 async function alterarFaltas(id) {
-  const faltas = prompt('Digite a nova quantidade de faltas:');
+  const novasFaltas = prompt('Digite a nova quantidade de faltas:');
 
-  if (faltas !== null && !isNaN(faltas)) {
+  if (novasFaltas !== null && !isNaN(novasFaltas)) {
     try {
+      const faltasAtuais = parseInt(document.getElementById(`faltas-${id}`).textContent);
+      const totalFaltas = faltasAtuais + parseInt(novasFaltas);
+
       const response = await fetch(`${API_URL}/discipline/${id}`, {
-        method: 'PATCH',
+        method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ current_absence: parseInt(faltas) }),
+        body: JSON.stringify({ current_absence: parseInt(totalFaltas) }),
       });
+      
       const data = await response.json();
+
       if (response.ok) {
         document.getElementById(`faltas-${id}`).textContent = data.current_absence;
+        
         const percentual = (data.current_absence / data.total_classes) * 100;
         document.getElementById(`percentual-${id}`).textContent = percentual.toFixed(0);
-        document.getElementById(`progress-${id}`).style.width = `${percentual}%`;
+
+        const percentualBarra = (data.current_absence / data.max_absences) * 100;
+        document.getElementById(`progress-${id}`).style.width = `${percentualBarra}%`;
+
+        if (data.current_absence >= data.max_absences) {
+          alert('Você atingiu ou ultrapassou o limite de faltas permitido!');
+        }
+        
       } else {
         alert(data.error || 'Erro ao atualizar faltas.');
       }
     } catch (err) {
+      console.error('Erro ao conectar com o servidor:', err);
       alert('Erro ao conectar com o servidor.');
     }
   }
@@ -85,7 +99,7 @@ function renderCard(discipline) {
       <img src="./assets/trash.png" alt="trash" onclick="excluirMateria('${discipline._id}')">
     </div>
     <div class="progress-bar">
-      <div class="progress" id="progress-${discipline._id}" style="width: ${(discipline.current_absence / discipline.total_classes * 100).toFixed(0)}%;"></div>
+      <div class="progress" id="progress-${discipline._id}" style="width: ${(discipline.current_absence / discipline.max_absences * 100).toFixed(0)}%;"></div>
     </div>
     <div class="actions">
       <button class="button" onclick="alterarFaltas('${discipline._id}')">Adicionar Faltas</button>
