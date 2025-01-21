@@ -1,4 +1,4 @@
-import Discipline from "../models/discipline.js";
+import Discipline from "../models/Discipline.js";
 
 class DisciplineService{
 

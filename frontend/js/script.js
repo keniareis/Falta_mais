@@ -91,7 +91,22 @@ function renderCard(discipline) {
   container.appendChild(card);
 }
 
+async function carregarDisciplinas() {
+  try{
+    const response = await fetch(`${API_URL}/discipline`);
+    const data = await response.json();
 
+    if(response.ok){
+      data.forEach(renderCard);
+    }else{
+      alert('Erro ao carregar disciplinas.');
+    }
+  }catch(err){
+    alert('Erro ao conectar com o servidor.')
+  }
+}
+
+window.onload = carregarDisciplinas;
   
 // Abrir modal
 function abrirModal() {
