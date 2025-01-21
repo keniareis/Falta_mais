@@ -82,7 +82,7 @@ function renderCard(discipline) {
         <h3>${discipline.name}</h3>
         <p>Faltas: <span id="faltas-${discipline._id}">${discipline.current_absence}</span>/${discipline.total_classes} (<span id="percentual-${discipline._id}">${(discipline.current_absence / discipline.total_classes * 100).toFixed(0)}</span>%)</p>
       </div>
-      <img src="./assets/trash.png" alt="trash" onclick="excluirMateria(${discipline.id})">
+      <img src="./assets/trash.png" alt="trash" onclick="excluirMateria('${discipline._id}')">
     </div>
     <div class="progress-bar">
       <div class="progress" id="progress-${discipline._id}" style="width: ${(discipline.current_absence / discipline.total_classes * 100).toFixed(0)}%;"></div>
