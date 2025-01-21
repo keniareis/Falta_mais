@@ -1,4 +1,6 @@
 import disciplineService from "../services/DisciplineService.js"
+import mongoose from 'mongoose';
+
 
 class DisciplineController{
     async createDiscipline(req, res) {
@@ -33,10 +35,19 @@ class DisciplineController{
     
     async updateDiscipline(req, res){
         const { id } = req.params;
-        const updates = req.body;
+        const { name, total_classes, max_absences, current_absence } = req.body;
 
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ error: "Invalid ID format!" });
+        }
+
+        const updateData = { name, total_classes, max_absences, current_absence };
+        Object.keys(updateData).forEach((key) => {
+            if (updateData[key] === undefined) delete updateData[key];
+        });
+    
         try{
-            const updatedDiscipline = await disciplineService.updateDiscipline(id, updates);
+            const updatedDiscipline = await disciplineService.updateDiscipline(id, { name, total_classes, max_absences, current_absence });
             
             if(!updatedDiscipline){
                 return res.status(404).json({ error: "Discipline not found!" });
