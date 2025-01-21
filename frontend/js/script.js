@@ -121,7 +121,7 @@ function fecharModal() {
 // Adicionar disciplina
 async function adicionarDisciplina() {
   const nome = document.getElementById("nome-disciplina").value;
-  const totalAulas = document.getElementById("total-aulas").value;
+  const totalAulas = parseInt(document.getElementById("total-aulas").value);
   const faltasPermitidasPercent = parseInt(document.getElementById("faltas-permitidas").value);
 
 

@@ -3,8 +3,8 @@ import disciplineService from "../services/DisciplineService.js"
 class DisciplineController{
     async createDiscipline(req, res) {
         try {
-            const { name, total_classes, total_absence, current_absence } = req.body;    
-            const discipline = { name, total_classes, total_absence, current_absence };
+            const { name, total_classes, max_absences, current_absence } = req.body;    
+            const discipline = { name, total_classes, max_absences, current_absence };
             const savedDiscipline = await disciplineService.createDiscipline(discipline);
     
             res.status(201).json(savedDiscipline);
