@@ -212,7 +212,7 @@
                                     "value": {
                                         "name": "Calculo I",
                                         "total_classes": "60",
-                                        "total_absence": "18",
+                                        "max_absences": "18",
                                         "current_absence": "2"
                                     }
                                 }

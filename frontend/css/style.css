@@ -184,8 +184,8 @@ header.logo {
   box-shadow: 0 0px 0px rgba(0, 0, 0, 0.4);
 
   img {
-    width: 250px; /* Aumenta o tamanho da logo */
-    margin-bottom: 70px; /* Espaçamento entre a logo e o card */
+    width: 250px;
+    margin-bottom: 70px;
   }
 }
 

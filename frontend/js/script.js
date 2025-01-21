@@ -2,9 +2,10 @@ const API_URL = 'http://localhost:3000';
 
 async function alterarFaltas(id) {
   const faltas = prompt('Digite a nova quantidade de faltas:');
+  
   if (faltas !== null && !isNaN(faltas)) {
     try {
-      const response = await fetch(`${API_URL}/${id}`, {
+      const response = await fetch(`${API_URL}/discipline/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ current_absence: parseInt(faltas) }),
@@ -28,7 +29,7 @@ async function editarMateria(id) {
   const novoNome = prompt('Digite o novo nome da matéria:');
   if (novoNome !== null) {
     try {
-      const response = await fetch(`${API_URL}/${id}`, {
+      const response = await fetch(`${API_URL}/discipline/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: novoNome }),
@@ -46,35 +47,11 @@ async function editarMateria(id) {
   }
 }
 
-async function adicionarMateria() {
-  const nome = prompt('Digite o nome da nova matéria:');
-  const totalClasses = prompt('Digite o total de aulas dessa matéria:');
-  if (nome && totalClasses && !isNaN(totalClasses)) {
-    try {
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: nome, total_classes: parseInt(totalClasses), current_absence: 0 }),
-      });
-      const data = await response.json();
-      if (response.ok) {
-        renderCard(data); // Adiciona a nova matéria no front-end
-      } else {
-        alert(data.error || 'Erro ao adicionar matéria.');
-      }
-    } catch (err) {
-      alert('Erro ao conectar com o servidor.');
-    }
-  } else {
-    alert('Por favor, insira valores válidos.');
-  }
-}
-
 async function excluirMateria(id) {
   const confirmDelete = confirm('Tem certeza que deseja excluir esta matéria?');
   if (confirmDelete) {
     try {
-      const response = await fetch(`${API_URL}/${id}`, {
+      const response = await fetch(`${API_URL}/discipline/${id}`, {
         method: 'DELETE',
       });
       if (response.ok) {
@@ -114,6 +91,7 @@ function renderCard(discipline) {
   container.appendChild(card);
 }
 
+
   
 // Abrir modal
 function abrirModal() {
@@ -126,22 +104,41 @@ function fecharModal() {
 }
 
 // Adicionar disciplina
-function adicionarDisciplina() {
+async function adicionarDisciplina() {
   const nome = document.getElementById("nome-disciplina").value;
   const totalAulas = document.getElementById("total-aulas").value;
-  const faltasPermitidas = document.getElementById("faltas-permitidas").value;
+  const faltasPermitidasPercent = parseInt(document.getElementById("faltas-permitidas").value);
 
-  if (!nome || !totalAulas) {
+
+  if (!nome || !totalAulas || isNaN(faltasPermitidasPercent)) {
     alert("Preencha todos os campos.");
     return;
   }
 
-  // Lógica para adicionar a disciplina
-  console.log("Disciplina adicionada:", {
-    nome,
-    totalAulas,
-    faltasPermitidas,
-  });
+  const maxFaltas = Math.floor((faltasPermitidasPercent / 100) * totalAulas)
+
+  try{
+    const respose = await fetch(`${API_URL}/discipline`,{
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: nome,
+        total_classes: parseInt(totalAulas),
+        max_absences: maxFaltas,
+        current_absence: 0,
+      }),
+    });
+
+    const data = await respose.json();
+    if(respose.ok){
+      renderCard(data);
+      fecharModal();
+    }else{
+      alert(data.error || 'Erro ao adicionar disciplina.');
+    }
+  } catch(err) {
+    alert('Erro ao conectar com o servidor.');
+  }
 
   fecharModal();
 }
@@ -163,21 +160,6 @@ function fazerLogin(event) {
   }
 }
 
-// Funções para manipular o dashboard
-function alterarFaltas(id) {
-  const faltasElement = document.getElementById(`faltas-${id}`);
-  const percentualElement = document.getElementById(`percentual-${id}`);
-  const progressElement = document.getElementById(`progress-${id}`);
-
-  let faltas = parseInt(faltasElement.innerText);
-  let totalAulas = 10; // Altere conforme necessário
-  faltas += 1;
-
-  const percentual = Math.min((faltas / totalAulas) * 100, 100);
-  faltasElement.innerText = faltas;
-  percentualElement.innerText = percentual.toFixed(0);
-  progressElement.style.width = `${percentual}%`;
-}
 
 function abrirModal() {
   const modal = document.getElementById("modal");
@@ -187,19 +169,4 @@ function abrirModal() {
 function fecharModal() {
   const modal = document.getElementById("modal");
   modal.classList.add("hidden");
-}
-
-function adicionarDisciplina() {
-  const nome = document.getElementById("nome-disciplina").value;
-  const totalAulas = parseInt(document.getElementById("total-aulas").value);
-  const faltasPermitidas = parseInt(
-    document.getElementById("faltas-permitidas").value
-  );
-
-  if (nome && totalAulas && faltasPermitidas) {
-    alert(`Disciplina "${nome}" adicionada com sucesso!`);
-    fecharModal();
-  } else {
-    alert("Preencha todos os campos!");
-  }
 }
