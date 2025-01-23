@@ -1,8 +1,20 @@
 const API_URL = 'http://localhost:3000';
 
+
+function abrirModalFaltas(id) {
+  const modal = document.getElementById('add-faltas');
+  modal.classList.remove('hidden');
+  const addButton = modal.querySelector('.add-btn');
+  addButton.setAttribute('onclick', `alterarFaltas('${id}')`);
+}
+
+function fecharModalFaltas() {
+  document.getElementById('modal').classList.add('hidden');
+  document.getElementById('add-faltas').classList.add('hidden');
+}
 // Alterar número de faltas
 async function alterarFaltas(id) {
-  const novasFaltas = prompt('Digite a nova quantidade de faltas:');
+  const novasFaltas = parseInt(document.getElementById('qtd-faltas').value);
 
   if (novasFaltas !== null && !isNaN(novasFaltas)) {
     try {
@@ -26,9 +38,12 @@ async function alterarFaltas(id) {
         const percentualBarra = (data.current_absence / data.max_absences) * 100;
         document.getElementById(`progress-${id}`).style.width = `${percentualBarra}%`;
 
+        
         if (data.current_absence >= data.max_absences) {
           alert('Você atingiu ou ultrapassou o limite de faltas permitido!');
         }
+
+        fecharModalFaltas();
         
       } else {
         alert(data.error || 'Erro ao atualizar faltas.');
@@ -102,7 +117,7 @@ function renderCard(discipline) {
       <div class="progress" id="progress-${discipline._id}" style="width: ${(discipline.current_absence / discipline.max_absences * 100).toFixed(0)}%;"></div>
     </div>
     <div class="actions">
-      <button class="button" onclick="alterarFaltas('${discipline._id}')">Adicionar Faltas</button>
+      <button class="button" onclick="abrirModalFaltas('${discipline._id}')">Adicionar Faltas</button>
       <button class="button" onclick="editarMateria('${discipline._id}')">Editar Matéria</button>
     </div>
   `;
