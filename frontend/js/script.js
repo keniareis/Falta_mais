@@ -1,6 +1,5 @@
 const API_URL = 'http://localhost:3000';
 
-
 function abrirModalFaltas(id) {
   const modal = document.getElementById('add-faltas');
   modal.classList.remove('hidden');
@@ -26,25 +25,25 @@ async function alterarFaltas(id) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ current_absence: parseInt(totalFaltas) }),
       });
-      
+
       const data = await response.json();
 
       if (response.ok) {
         document.getElementById(`faltas-${id}`).textContent = data.current_absence;
-        
+
         const percentual = (data.current_absence / data.total_classes) * 100;
         document.getElementById(`percentual-${id}`).textContent = percentual.toFixed(0);
 
         const percentualBarra = (data.current_absence / data.max_absences) * 100;
         document.getElementById(`progress-${id}`).style.width = `${percentualBarra}%`;
 
-        
+
         if (data.current_absence >= data.max_absences) {
           alert('Você atingiu ou ultrapassou o limite de faltas permitido!');
         }
 
         fecharModalFaltas();
-        
+
       } else {
         alert(data.error || 'Erro ao atualizar faltas.');
       }
@@ -55,27 +54,92 @@ async function alterarFaltas(id) {
   }
 }
 
+function abrirModalEdit(id) {
+  const modal = document.getElementById('edit-materia');
+  modal.classList.remove('hidden');
+
+  const saveButton = modal.querySelector('.add-btn');
+  saveButton.setAttribute('onclick', `editarMateria('${id}')`);
+}
+
+function fecharModalEdit() {
+  const modal = document.getElementById('edit-materia');
+  modal.classList.add('hidden');
+}
+
 // Editar nome da matéria
 async function editarMateria(id) {
-    console.log(id);
-  const novoNome = prompt('Digite o novo nome da matéria:');
-  if (novoNome !== null) {
+  console.log(`ID recebido para editar: ${id}`);
+  const novoNome = document.getElementById('edit-name-materia').value;
+  const novoTotalAulas = parseInt(document.getElementById('edit-total-aulas').value);
+  console.log(`nome e total atribuidos`);
+  console.log(novoNome);
+
+  if (novoNome.trim() !== '' && !isNaN(novoTotalAulas)) {
+    console.log(`verificando se nome é null`);
     try {
       const response = await fetch(`${API_URL}/discipline/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: novoNome }),
+        body: JSON.stringify({
+          name: novoNome,
+          total_classes: parseInt(novoTotalAulas)
+        }),
       });
+
       const data = await response.json();
+      console.log('Dados retornados pelo servidor:', data);
+
       if (response.ok) {
-        const card = document.querySelector(`.card[data-id="${id}"] h3`);
-        if (card) card.textContent = data.name;
+
+        const card = document.querySelector(`.card[data-id="${id}"]`);
+        console.log('atribuindo card');
+
+        if (card) {
+          // Atualiza o nome da matéria
+          const titleElement = card.querySelector('h3');
+          if (titleElement) {
+            titleElement.textContent = data.name;
+          }
+
+          // Atualiza o número de faltas
+          const faltasElement = document.querySelector(`#faltas-${id}`);
+          if (faltasElement) {
+            faltasElement.textContent = data.current_absence; // Atualiza faltas no frontend
+          }
+
+          // Atualiza o percentual
+          const percentualElement = document.querySelector(`#percentual-${id}`);
+          if (percentualElement) {
+            const percentual = ((data.current_absence / data.total_classes) * 100).toFixed(0);
+            percentualElement.textContent = percentual;
+          }
+
+          // Atualiza a barra de progresso
+          const progressElement = document.querySelector(`#progress-${id}`);
+          if (progressElement) {
+            const progress = ((data.current_absence / data.max_absences) * 100).toFixed(0);
+            progressElement.style.width = `${progress}%`;
+          }
+
+          card.remove(); // Remove o card antigo do DOM
+
+          renderCard(data);
+          console.log('Card atualizado com sucesso.');
+
+        } else {
+          console.warn('Nenhum card encontrado para o ID fornecido.');
+        }
+
+        fecharModalEdit();
       } else {
-        alert(data.error || 'Erro ao atualizar o nome da matéria.');
+        alert(data.error || 'Erro ao atualizar a matéria.');
       }
     } catch (err) {
-      alert('Erro ao conectar com o servidor.');
+      console.log('Erro ao conectar com o servidor.');
     }
+  }else{
+    alert('Preencha todos os campos.');
   }
 }
 
@@ -118,7 +182,7 @@ function renderCard(discipline) {
     </div>
     <div class="actions">
       <button class="button" onclick="abrirModalFaltas('${discipline._id}')">Adicionar Faltas</button>
-      <button class="button" onclick="editarMateria('${discipline._id}')">Editar Matéria</button>
+      <button class="button" onclick="abrirModalEdit('${discipline._id}')">Editar Matéria</button>
     </div>
   `;
   container.appendChild(card);
@@ -130,7 +194,7 @@ async function carregarDisciplinas() {
     const response = await fetch(`${API_URL}/discipline`);
     const data = await response.json();
 
-    
+
     if (response.ok) {
       console.log(data);
       data.forEach(renderCard);
