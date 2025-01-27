@@ -8,9 +8,13 @@
 </head>
 <body>
   <header>
-    <img src="./assets/faltamais.png" alt="logo">
-    <p>Controle suas faltas com tecnologia e precisão.</p>
+    <div>
+      <img src="./assets/faltamais.png" alt="logo">
+      <p>Controle suas faltas com tecnologia e precisão.</p>
+    </div>
+    <button class="btn" onclick="redirectToLogin()">Entrar</button>
   </header>
+
   <button class="add-btn" onclick="abrirModal()">Adicionar Materia</button>
   <main class="container"></main>
   <script src="./js/script.js"></script>
@@ -32,8 +36,37 @@
         <option value="35">35%</option>
       </select>
   
-      <button class="add-btn" onclick="adicionarDisciplina()">Adicionar</button>
-      <button class="close-btn" onclick="fecharModal()">Cancelar</button>
+      <div class="btns">
+        <button class="close-btn" onclick="fecharModal()">Cancelar</button>
+        <button class="add-btn" onclick="adicionarDisciplina()">Adicionar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="add-faltas" class="modal hidden">
+    <div class="modal-content">
+      <label for="qtd-faltas">Digite a nova quantidade de faltas:</label>
+      <input type="text" id="qtd-faltas" placeholder="Quantidade de faltas">
+  
+      <div class="btns">
+        <button class="add-btn" onclick="alterarFaltas()">Adicionar</button>
+        <button class="close-btn" onclick="fecharModalFaltas()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="edit-materia" class="modal hidden">
+    <div class="modal-content">
+      <label for="edit-name-materia">Nome da Materia:</label>
+      <input type="text" id="edit-name-materia" placeholder="Nome">
+
+      <label for="edit-total-aulas">Total de aulas:</label>
+      <input type="text" id="edit-total-aulas" placeholder="Total de aulas">
+  
+      <div class="btns">
+        <button class="close-btn" onclick="fecharModalEdit()">Cancelar</button>
+        <button class="add-btn" onclick="editarMateria()">Salvar</button>
+      </div>
     </div>
   </div>
   
