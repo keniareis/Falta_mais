@@ -12,7 +12,7 @@ async function fazerLogin(event) {
     }
   
     try {
-      const response = await fetch(`${API_URL}/user`, {
+      const response = await fetch(`${API_URL}/auth`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
