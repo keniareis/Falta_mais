@@ -43,3 +43,10 @@ registerForm.addEventListener("submit", async (event) => {
         console.error("Erro:", error.message);
     }
 });
+
+const loginLink = document.querySelector(".register-link a");
+
+loginLink.addEventListener("click", (event) => {
+    event.preventDefault(); 
+    window.location.href = "./login.html"; 
+});
