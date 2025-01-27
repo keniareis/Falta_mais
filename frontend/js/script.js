@@ -138,7 +138,7 @@ async function editarMateria(id) {
     } catch (err) {
       console.log('Erro ao conectar com o servidor.');
     }
-  }else{
+  } else {
     alert('Preencha todos os campos.');
   }
 }
@@ -254,8 +254,7 @@ function fecharModal() {
 }
 
 // Login
-
-function redirectToLogin(){
+function redirectToLogin() {
   window.location.href = './login.html';
 }
 
@@ -272,7 +271,7 @@ async function fazerLogin(event) {
 
   try {
     const response = await fetch(`${API_URL}/user`, {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -300,6 +299,5 @@ async function fazerLogin(event) {
     alert('Não foi possível realizar o login. Verifique sua conexão e tente novamente.');
   }
 }
-
 
 window.onload = carregarDisciplinas;

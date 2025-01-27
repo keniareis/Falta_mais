@@ -13,20 +13,23 @@
     </header>
     <div class="signin-card">
       <h2>Entrar</h2>
-      <form class="signin-form" onsubmit="return fazerLogin(event)">
-        <input type="name" id="name" placeholder="Nome" required>
+      <form id="signin-form" class="signin-form">
+        <input type="text" id="name" placeholder="Nome" required>
 
         <input type="email" id="email" placeholder="Email" required>
 
-        <input type="password" id="senha" placeholder="Senha" required>
+        <input type="password" id="password" placeholder="Senha" required>
 
-        <button type="submit" class="signin-btn">Entrar</button>
+        <button type="submit" class="signin-btn" >Cadastrar</button>
+
+        <p id="error-message" style="color: red; display: none;"></p>
+        <p id="success-message" style="color: green; display: none;"></p>
       </form>
       <p class="register-link">
         Já tem uma conta? <a href="#" target="_blank">Entrar</a>
       </p>
     </div>
   </div>
-  <script src="./js/script.js"></script>
+  <script src="./js/register.js"></script>
 </body>
 </html>
