@@ -258,4 +258,8 @@ function redirectToLogin() {
   window.location.href = './login.html';
 }
 
+function redirectToRegister() {
+  window.location.href = './signin.html';
+}
+
 window.onload = carregarDisciplinas;
