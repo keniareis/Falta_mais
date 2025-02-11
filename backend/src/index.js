@@ -23,6 +23,8 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
 }));
 
+
+
 app.use(router);
 app.use(userRouter); 
 app.use("/auth", authRouter); 
