@@ -83,5 +83,5 @@ Acesse a documentação interativa em:
 ---
 
 <p align="center">
-  Desenvolvido com ❤️ por <a href="https://github.com/keniareis">Kênia Reis</a>
+  Desenvolvido com 💜 por <a href="https://github.com/keniareis">Kênia Reis</a>
 </p>
